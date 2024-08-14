@@ -1,11 +1,11 @@
 import Link from "next/link";
 import NavItems from "./nav-items";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 import Cart from "./cart";
 import UserAccount from "./user-account";
 import Image from "next/image";
-import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { cn } from "@/lib/utils";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
@@ -33,11 +33,24 @@ const Navbar = async () => {
             <div className="ml-auto flex items-center">
               <div className="flex items-center justify-end space-x-6">
                 {user ? (
-                  <UserAccount name={fullname as string} email={user.email as string} image={user.picture ?? `https://avatar.vercel.sh/rauchg/${user.given_name}`} />
+                  <UserAccount
+                    name={fullname as string}
+                    email={user.email as string}
+                    image={
+                      user.picture ??
+                      `https://avatar.vercel.sh/rauchg/${user.given_name}`
+                    }
+                  />
                 ) : (
-                  <Button size="sm" asChild>
-                    <LoginLink>Sign In</LoginLink>
-                  </Button>
+                  <Link
+                    href="/sign-in"
+                    className={cn("bg-primary", buttonVariants({
+                      variant: "default",
+                      size: "sm",
+                    }))}
+                  >
+                    Sign In
+                  </Link>
                 )}
 
                 {user && (
