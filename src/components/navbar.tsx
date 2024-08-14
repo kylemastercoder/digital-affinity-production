@@ -1,15 +1,16 @@
-"use client";
-
 import Link from "next/link";
 import NavItems from "./nav-items";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import Cart from "./cart";
 import UserAccount from "./user-account";
 import Image from "next/image";
+import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-const Navbar = () => {
-  const user = null;
-  
+const Navbar = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  const fullname = user?.given_name + " " + user?.family_name;
   return (
     <div className="sticky w-full z-50 top-0 inset-x-0 h-16">
       <header className="relative border-b w-full backdrop-blur">
@@ -32,17 +33,11 @@ const Navbar = () => {
             <div className="ml-auto flex items-center">
               <div className="flex items-center justify-end space-x-6">
                 {user ? (
-                  <UserAccount />
+                  <UserAccount name={fullname as string} email={user.email as string} image={user.picture ?? `https://avatar.vercel.sh/rauchg/${user.given_name}`} />
                 ) : (
-                  <Link
-                    href="/sign-in"
-                    className={buttonVariants({
-                      variant: "default",
-                      size: "sm",
-                    })}
-                  >
-                    Sign In
-                  </Link>
+                  <Button size="sm" asChild>
+                    <LoginLink>Sign In</LoginLink>
+                  </Button>
                 )}
 
                 {user && (
