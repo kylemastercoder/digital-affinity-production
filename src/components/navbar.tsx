@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NavItems from "./nav-items";
-import { Button, buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 import Cart from "./cart";
 import UserAccount from "./user-account";
 import Image from "next/image";

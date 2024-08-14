@@ -4,7 +4,7 @@ import React from "react";
 const Home = () => {
   return (
     <MaxWidthWrapper>
-      <div>Home</div>
+      <div>Home, Lets Go!</div>
     </MaxWidthWrapper>
   );
 };
