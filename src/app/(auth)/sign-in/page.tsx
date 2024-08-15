@@ -26,7 +26,6 @@ const SignIn = async (props: {
   const emailConnectionId = connections?.find(
     (conn: any) => conn.strategy === "email:otp"
   )?.id;
-  console.log(emailConnectionId);
   return (
     <div className="h-screen flex items-center">
       <Card className="mx-auto w-full max-w-sm">
