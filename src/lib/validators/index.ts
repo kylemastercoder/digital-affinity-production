@@ -13,6 +13,13 @@ export const UserSchema = z.object({
     .optional(),
 });
 
+export const QueryProductValidator = z.object({
+  categoryId: z.string().optional(),
+  sort: z.enum(["asc", "desc"]).optional(),
+  limit: z.number().optional(),
+  isTrending: z.string().optional(),
+});
+
 export type State = {
   status: "error" | "success" | undefined;
   errors?: {
