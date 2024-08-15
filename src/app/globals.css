@@ -67,3 +67,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.input-phone {
+  @apply mt-2 h-11 rounded-md px-3 text-sm border bg-black !important
+}
