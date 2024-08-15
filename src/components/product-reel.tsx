@@ -90,7 +90,7 @@ const ProductReel = (props: ProductReelProps) => {
                 height={300}
               />
               <h3 className="font-semibold text-lg">No Products Found</h3>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground md:text-md text-sm text-center">
                 It looks like we don’t have any products to show right now.
               </p>
               <Link

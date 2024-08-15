@@ -296,10 +296,10 @@ const Home = () => {
                   <div className="border p-3 rounded-3xl mb-3 backdrop-blur">
                     <HeartHandshake size={50} />
                   </div>
-                  <p className="text-white font-black text-3xl">
+                  <p className="text-white font-black text-center text-3xl">
                     Stop wasting time on design.
                   </p>
-                  <p className="text-white mt-2">
+                  <p className="text-white text-center mt-2">
                     Purchase our digital assets and high-quality services.
                   </p>
                 </div>

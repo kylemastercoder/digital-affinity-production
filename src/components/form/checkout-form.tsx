@@ -257,7 +257,7 @@ const CheckoutForm = ({ fullName, email }: CheckoutFormProps) => {
           </label>
         </div>
       </div>
-      <div className="w-full md:w-1/2 pl-6 border-l border-border">
+      <div className="w-full md:mt-0 mt-5 md:w-1/2 md:pl-6 pl-0 md:border-l border-none md:border-border">
         <h2 className="text-lg font-semibold">Customer Details</h2>
         <p className="text-sm text-muted-foreground mb-5">
           Complete your purchase by providing your details.

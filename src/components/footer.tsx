@@ -33,12 +33,6 @@ const Footer = () => {
               >
                 Privacy Policy
               </Link>
-              <Link
-                href="#"
-                className="text-sm text-muted-foreground hover:text-gray-600"
-              >
-                Cookie Policy
-              </Link>
             </div>
           </div>
         </div>
