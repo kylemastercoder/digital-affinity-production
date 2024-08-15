@@ -49,8 +49,8 @@ const CheckoutForm = ({ fullName, email }: CheckoutFormProps) => {
 
   const totalAmount = cartTotal + fee;
   return (
-    <form className="flex flex-col md:flex-row py-14">
-      <div className="w-full md:w-1/2 pr-6">
+    <form className="flex flex-col md:flex-row py-10">
+      <div className="w-full md:w-1/2 md:pr-6 pr-0">
         <Link href="/cart" className="text-gray-200 hover:underline">
           &larr; Back to cart
         </Link>
