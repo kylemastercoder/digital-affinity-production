@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id                 String   @id @unique
+  email              String   @unique
+  firstName          String
+  lastName           String
+  image              String?
+  connectedAccountId String?
+  orders             Order[]  @relation("UserToOrder")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  products  Product[] @relation("CategoryToProduct")
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  categoryId  String
+  category    Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  name        String
+  price       Decimal
+  description String?
+  images      String[]
+  file        String
+  status      String   @default("Active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orders Order[] @relation("ProductToOrder")
+
+  @@index([categoryId])
+}
+
+model Order {
+  id            String  @id @default(uuid())
+  userId        String
+  user          User    @relation("UserToOrder", fields: [userId], references: [id])
+  contactNumber String?
+  paymentMethod String
+  proof         String?
+  isPaid        Boolean @default(false)
+  status        String  @default("Pending")
+  totalAmount   Decimal
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[] @relation("ProductToOrder")
+
+  @@index([userId])
+}

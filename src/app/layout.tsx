@@ -18,13 +18,13 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body
         className={cn(
-          "relative h-full bg-black font-sans antialiased",
+          "relative h-full font-sans antialiased",
           inter.className
         )}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >

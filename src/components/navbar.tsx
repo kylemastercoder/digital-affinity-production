@@ -6,11 +6,44 @@ import UserAccount from "./user-account";
 import Image from "next/image";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { cn } from "@/lib/utils";
+import db from "@/lib/db";
+import { redirect } from "next/navigation";
+
+async function getData(userId: string) {
+  const data = await db.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  return data;
+}
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const fullname = user?.given_name + " " + user?.family_name;
+
+  if (!user || !user?.id) {
+    redirect("/sign-in");
+  }
+  
+  const data = await getData(user?.id as string);
+
+  if (!data) {
+    await db.user.create({
+      data: {
+        id: user.id,
+        email: user.email!,
+        firstName: user.given_name!,
+        lastName: user.family_name!,
+        image: user.picture,
+        connectedAccountId: "email:otp",
+      },
+    });
+  }
+
+  const fullname = data?.firstName + " " + data?.lastName;
+
   return (
     <div className="sticky w-full z-50 top-0 inset-x-0 h-16">
       <header className="relative border-b w-full backdrop-blur">
@@ -35,19 +68,22 @@ const Navbar = async () => {
                 {user ? (
                   <UserAccount
                     name={fullname as string}
-                    email={user.email as string}
+                    email={data?.email as string}
                     image={
-                      user.picture ??
-                      `https://avatar.vercel.sh/rauchg/${user.given_name}`
+                      data?.image ??
+                      `https://avatar.vercel.sh/rauchg/${data?.firstName}`
                     }
                   />
                 ) : (
                   <Link
                     href="/sign-in"
-                    className={cn("bg-primary", buttonVariants({
-                      variant: "default",
-                      size: "sm",
-                    }))}
+                    className={cn(
+                      "bg-primary",
+                      buttonVariants({
+                        variant: "default",
+                        size: "sm",
+                      })
+                    )}
                   >
                     Sign In
                   </Link>
